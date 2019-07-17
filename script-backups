@@ -1,0 +1,13 @@
+#!/bin/sh
+### script /root/script_backups.sh
+#### backup del archivo /cf/conf/config.xml
+fecha=$(date +%m-%d-%Y)
+nombrefw=$(hostname)
+/bin/cp /cf/conf/config.xml /backups-fwpf/config-$nombrefw-$fecha.xml
+/usr/bin/scp /backups-fwpf/config-$nombrefw-$fecha.xml root@ipremota:/destino/
+/usr/bin/find /backups-fwpf/ -type f -mtime +31 -delete
+
+# crear archivo /root/script_backups.sh
+
+# crontab
+# 0 2 * * * sh /root/script_backups.sh
